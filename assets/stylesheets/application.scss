@@ -4,4 +4,16 @@ body {
 .app {
   margin-top: 20px;
   margin-bottom: 20px;
+  display: flex;
 }
+
+.channel_list{
+  padding-left: 10px;
+  width: 30%;
+}
+
+.message_list{
+  padding-right: 10px;
+  width: 70%;
+}
+
