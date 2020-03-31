@@ -2,27 +2,48 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { createMessage } from '../actions';
+import { setMessages } from '../actions';
 
-class MessageFrom extends Component {
-  handleChange = () => {
-    let newMessage = document.getElementById('message').value;
-    this.props.handleSubmit("general", "Ben", newMessage);
+class MessageForm extends Component {
+  constructor(props){
+    super(props);
+    this.state = { value: '' };
+  }
+
+
+  handleChange = (event) => {
+    console.log(event.target.value);
+    this.setState({ value: event.target.value });
+  };
+
+  handleSubmit = (event) => {
+    //event.preventDefault();
+    createMessage(this.props.selectedChannel, "ben", this.state.value);
+    this.setState({ value: '' });
+    this.props.setMessages(this.props.selectedChannel)
   };
 
   render(){
     return(
       <div>
-          Add a new message: <input id='message' type='text'></input>
-          <button onClick={this.handleChange}> Submit </button>
+          Add a new message: <input id='message' type='text' value={this.state.value} onChange={this.handleChange}></input>
+          <button onClick={() => this.handleSubmit(this.props.selectedChannel)}> Submit </button>
       </div>
       );
   }
 }
 
+function mapStateToProps(state){
+  return{
+    selectedChannel: state.selectedChannel
+  };
+}
+
+
 function mapDispatchToProps(dispatch){
   return bindActionCreators(
-    { handleSubmit: createMessage }, dispatch);
+    { handleSubmit: createMessage, setMessages}, dispatch);
 };
 
 
-export default connect(null, mapDispatchToProps) (MessageFrom);
+export default connect(mapStateToProps, mapDispatchToProps) (MessageForm);

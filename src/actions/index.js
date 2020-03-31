@@ -7,21 +7,23 @@
 //   }
 // }
 
-const url='https://wagon-chat.herokuapp.com/general/messages.json'
+const url_base='https://wagon-chat.herokuapp.com/';
 
-export function setMessages(){
- return fetch(url)
- .then(response => response.json())
- .then((data) => {
- return {
-  type: 'MESSAGE_LIST',
-  payload: data
- };
- });
+export function setMessages(channel) {
+  console.log("action");
+  console.log("channel_action"+channel);
+  const url = `${url_base}/${channel}/messages`;
+  const promise = fetch(url).then(r => r.json());
+  return {
+    type: "MESSAGE_LIST",
+    payload: promise
+  };
 }
 
 export function createMessage(channel, author, content) {
+  console.log("createmsg_"+channel);
   const body = { "author":author,"content":content };
+  const url = `${url_base}/${channel}/messages`;
   const promise = fetch(url, {
     method: 'POST',
     headers: {
@@ -35,6 +37,13 @@ export function createMessage(channel, author, content) {
     type: "MESSAGE_POSTED",
     payload: promise
   };
+}
+
+export function selectChannel(channel){
+  return {
+    type: 'SELECTED_CHANNEL',
+    payload: channel
+  }
 }
 
 
