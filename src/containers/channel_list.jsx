@@ -19,7 +19,9 @@ class ChannelList extends Component {
   }
 
   render(){
-    return(<div className="channel_list">{this.props.channels.map(channel => this.renderChannel(channel))} </div>);
+    return(<div className="channel_list">
+      <p>Rooms</p>
+      {this.props.channels.map(channel => this.renderChannel(channel))} </div>);
   }
 }
 

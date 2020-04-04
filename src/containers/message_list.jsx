@@ -8,16 +8,16 @@ import { setMessages, selectChannel } from '../actions';
 class MessageList extends Component {
 
   componentWillMount() {
-    this.props.setMessages(this.props.selectedChannel);
+    setMessages()
   }
 
-  //componentDidMount() {
-  //  var refreshing = window.setInterval(this.props.setMessages, 5000)
-  //}
+  componentDidMount() {
+    var refreshing = setInterval(this.setMessages, 1000)
+  }
 
-  //componentWillUnmount() {
-  //   clearInterval(this.refreshing)
-  //}
+  componentWillUnmount() {
+    clearInterval(this.refreshing)
+  }
 
   componentDidUpdate() {
     this.list.scrollTop = this.list.scrollHeight;
@@ -30,9 +30,9 @@ class MessageList extends Component {
   render(){
     console.log("currentUser_"+this.props.currentUser);
     return(
-      <div>
+      <div className="channel-container">
         <div className="message_list" ref={(list) => { this.list = list; }}>
-          <p>{this.props.selectedChannel}</p>
+          <p>ChatRoom {this.props.selectedChannel}</p>
           <p>{this.props.currentUser}</p>
           {this.props.messages.map((message) => <Message message={message} key={message.created_at}/>)}
         </div>
@@ -47,7 +47,7 @@ class MessageList extends Component {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
-    { setMessages: setMessages }, dispatch );
+    { setMessages }, dispatch );
 };
 
 function mapStateToProps(state){

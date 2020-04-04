@@ -10,18 +10,17 @@ class MessageForm extends Component {
     this.state = { value: '' };
   }
 
-
   handleChange = (event) => {
     console.log(event.target.value);
     this.setState({ value: event.target.value });
-  };
+  }
 
   handleSubmit = (event) => {
-    //event.preventDefault();
-    createMessage(this.props.selectedChannel, "ben", this.state.value);
+    console.log("USER_"+this.props.currentUser)
+    createMessage(this.props.selectedChannel, this.props.currentUser, this.state.value);
+    setMessages(this.props.selectedChannel);
     this.setState({ value: '' });
-    this.props.setMessages(this.props.selectedChannel)
-  };
+  }
 
   render(){
     return(
@@ -35,6 +34,7 @@ class MessageForm extends Component {
 
 function mapStateToProps(state){
   return{
+    currentUser: state.currentUser,
     selectedChannel: state.selectedChannel
   };
 }
@@ -42,7 +42,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return bindActionCreators(
-    { handleSubmit: createMessage, setMessages}, dispatch);
+    { createMessage, setMessages}, dispatch);
 };
 
 

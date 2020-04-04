@@ -2,21 +2,36 @@ body {
   font-family: Helvetica;
 }
 .app {
-  margin-top: 20px;
-  margin-bottom: 20px;
   display: flex;
+  background-color: #f9f9f9;
 }
 
 .channel_list{
+  padding-top: 20px;
   padding-left: 10px;
-  width: 30%;
+  width: 20%;
+  background-color: #e2e2e2;
+  height: 100vh;
 }
-
+.channel-container {
+  padding-top: 20px;
+  padding-left: 40px;
+  width: 80vw;
+  height: 84vh;
+}
 .message_list{
-  padding-right: 10px;
-  width: 70%;
+  padding: 20px 20px 0 28px;
+  box-sizing: border-box;
+  height: 100%;
+  overflow: scroll;
 }
 
 .active{
-  color: blue;
+  font-weight: 900;
+}
+
+.message_form{
+  padding-left: 40px;
+  position: absolute;
+  bottom: 50px;
 }
